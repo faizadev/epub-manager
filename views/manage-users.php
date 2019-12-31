@@ -141,9 +141,10 @@ require_once __DIR__ . "/layouts/header.php";
 
                                         </td>
                                         <td>
-                                            <?php $department = new Department();
+                                            <?php 
+                                                    $department = new Department();
 
-                                            $department->find($user['department_id']);
+                                                    $department->find($user['department_id']);
 
                                             ?>
                                             <p class="text-dark"> <?php echo $department->name; ?></p>
@@ -162,7 +163,7 @@ require_once __DIR__ . "/layouts/header.php";
                                                 <a class="dropdown-toggle icon-burger-mini" href="" role="button" id="dropdown-recent-order1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static"></a>
                                                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-recent-order1">
                                                     <li class="dropdown-item">
-                                                        <a href="#" onclick="showEditForm(<?php echo $user['id']; ?>,'<?php echo $user['name']; ?>')">Edit</a>
+                                                        <a href="#" onclick="showEditForm(<?php echo $user['id']; ?>)">Edit</a>
                                                     </li>
                                                     <li class="dropdown-item">
                                                         <a href="../actions/delete_user.php?user_id=<?php echo $user['id'] ?>">Delete</a>
@@ -302,9 +303,18 @@ require_once __DIR__ . "/layouts/header.php";
 </div>
 
 <script>
-    function showEditForm(user_id, user_name) {
-        $("#user_id").val(user_id);
-        $("#user_name").val(user_name);
+    function showEditForm(user_id) {
+        
+        $.ajax({
+            url: "../actions/ajax/edit_user.php",
+            type: "POST",
+            data: {user_id: user_id},
+            success: function(resp){
+                console.log(resp);
+            }
+
+        });
+    
         $('#modal-add-edit').modal('show');
     }
 </script>

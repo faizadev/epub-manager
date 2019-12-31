@@ -1,5 +1,5 @@
 testing
 config/db_config.php
 vendor
+composer.json
 **/.DS_Store
-
